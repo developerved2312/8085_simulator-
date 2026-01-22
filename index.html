@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8085 Microprocessor Simulator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>🖥️ 8085 Microprocessor Simulator</h1>
+        <p>Write, Assemble, and Execute 8085 Assembly Programs</p>
+    </header>
+
+    <nav class="tabs">
+        <button class="tab-btn active" data-tab="editor">Code Editor</button>
+        <button class="tab-btn" data-tab="instructions">Instruction Set</button>
+        <button class="tab-btn" data-tab="converter">Hex/Dec Converter</button>
+        <button class="tab-btn" data-tab="memory">Memory Editor</button>
+    </nav>
+
+    <main>
+        <!-- Code Editor Tab -->
+        <section id="editor" class="tab-content active">
+            <div class="editor-container">
+                <div class="code-section">
+                    <h2>Assembly Code</h2>
+                    <textarea id="code-input" placeholder="Enter your 8085 assembly code here...
+Example:
+MVI A, 05H
+MVI B, 03H
+ADD B
+HLT"></textarea>
+                    <div class="button-group">
+                        <button id="assemble-btn" class="btn primary">Assemble</button>
+                        <button id="run-btn" class="btn success">Run</button>
+                        <button id="step-btn" class="btn warning">Step</button>
+                        <button id="reset-btn" class="btn danger">Reset</button>
+                        <button id="clear-btn" class="btn">Clear</button>
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <h2>Machine Code Output</h2>
+                    <div id="machine-code" class="output-box"></div>
+                    
+                    <h2>Execution Log</h2>
+                    <div id="execution-log" class="output-box"></div>
+                </div>
+            </div>
+
+            <div class="registers-memory">
+                <div class="registers">
+                    <h2>Registers</h2>
+                    <div class="register-grid">
+                        <div class="register">
+                            <span class="reg-name">A</span>
+                            <span class="reg-value" id="reg-a">00</span>
+                        </div>
+                        <div class="register">
+                            <span class="reg-name">B</span>
+                            <span class="reg-value" id="reg-b">00</span>
+                        </div>
+                        <div class="register">
+                            <span class="reg-name">C</span>
+                            <span class="reg-value" id="reg-c">00</span>
+                        </div>
+                        <div class="register">
+                            <span class="reg-name">D</span>
+                            <span class="reg-value" id="reg-d">00</span>
+                        </div>
+                        <div class="register">
+                            <span class="reg-name">E</span>
+                            <span class="reg-value" id="reg-e">00</span>
+                        </div>
+                        <div class="register">
+                            <span class="reg-name">H</span>
+                            <span class="reg-value" id="reg-h">00</span>
+                        </div>
+                        <div class="register">
+                            <span class="reg-name">L</span>
+                            <span class="reg-value" id="reg-l">00</span>
+                        </div>
+                        <div class="register">
+                            <span class="reg-name">M</span>
+                            <span class="reg-value" id="reg-m">00</span>
+                        </div>
+                    </div>
+                    
+                    <div class="special-registers">
+                        <div class="register wide">
+                            <span class="reg-name">SP</span>
+                            <span class="reg-value" id="reg-sp">FFFF</span>
+                        </div>
+                        <div class="register wide">
+                            <span class="reg-name">PC</span>
+                            <span class="reg-value" id="reg-pc">0000</span>
+                        </div>
+                    </div>
+
+                    <h3>Flags</h3>
+                    <div class="flags">
+                        <div class="flag">
+                            <span class="flag-name">S</span>
+                            <span class="flag-value" id="flag-s">0</span>
+                        </div>
+                        <div class="flag">
+                            <span class="flag-name">Z</span>
+                            <span class="flag-value" id="flag-z">0</span>
+                        </div>
+                        <div class="flag">
+                            <span class="flag-name">AC</span>
+                            <span class="flag-value" id="flag-ac">0</span>
+                        </div>
+                        <div class="flag">
+                            <span class="flag-name">P</span>
+                            <span class="flag-value" id="flag-p">0</span>
+                        </div>
+                        <div class="flag">
+                            <span class="flag-name">CY</span>
+                            <span class="flag-value" id="flag-cy">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-memory">
+                    <h2>Memory View</h2>
+                    <div class="memory-controls">
+                        <label>Start Address: </label>
+                        <input type="text" id="view-start-addr" value="0000" maxlength="4">
+                        <button id="view-memory-btn" class="btn small">View</button>
+                    </div>
+                    <div id="memory-view" class="memory-grid"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instructions Tab -->
+        <section id="instructions" class="tab-content">
+            <div class="instructions-container">
+                <div class="search-box">
+                    <input type="text" id="instruction-search" placeholder="Search instructions...">
+                </div>
+                
+                <div class="instruction-categories">
+                    <button class="cat-btn active" data-category="all">All</button>
+                    <button class="cat-btn" data-category="data-transfer">Data Transfer</button>
+                    <button class="cat-btn" data-category="arithmetic">Arithmetic</button>
+                    <button class="cat-btn" data-category="logical">Logical</button>
+                    <button class="cat-btn" data-category="branch">Branch</button>
+                    <button class="cat-btn" data-category="stack">Stack</button>
+                    <button class="cat-btn" data-category="io">I/O</button>
+                    <button class="cat-btn" data-category="control">Control</button>
+                </div>
+
+                <div id="instruction-list" class="instruction-list"></div>
+            </div>
+        </section>
+
+        <!-- Converter Tab -->
+        <section id="converter" class="tab-content">
+            <div class="converter-container">
+                <h2>Number System Converter</h2>
+                
+                <div class="converter-box">
+                    <div class="converter-input">
+                        <label>Hexadecimal</label>
+                        <input type="text" id="hex-input" placeholder="Enter hex (e.g., FF)">
+                    </div>
+                    <div class="converter-input">
+                        <label>Decimal</label>
+                        <input type="text" id="dec-input" placeholder="Enter decimal (e.g., 255)">
+                    </div>
+                    <div class="converter-input">
+                        <label>Binary</label>
+                        <input type="text" id="bin-input" placeholder="Enter binary (e.g., 11111111)">
+                    </div>
+                    <div class="converter-input">
+                        <label>Octal</label>
+                        <input type="text" id="oct-input" placeholder="Enter octal (e.g., 377)">
+                    </div>
+                </div>
+
+                <div class="converter-actions">
+                    <button id="convert-clear" class="btn">Clear All</button>
+                </div>
+
+                <div class="quick-ref">
+                    <h3>Quick Reference</h3>
+                    <table class="ref-table">
+                        <thead>
+                            <tr>
+                                <th>Hex</th>
+                                <th>Dec</th>
+                                <th>Hex</th>
+                                <th>Dec</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td>8</td><td>8</td></tr>
+                            <tr><td>1</td><td>1</td><td>9</td><td>9</td></tr>
+                            <tr><td>2</td><td>2</td><td>A</td><td>10</td></tr>
+                            <tr><td>3</td><td>3</td><td>B</td><td>11</td></tr>
+                            <tr><td>4</td><td>4</td><td>C</td><td>12</td></tr>
+                            <tr><td>5</td><td>5</td><td>D</td><td>13</td></tr>
+                            <tr><td>6</td><td>6</td><td>E</td><td>14</td></tr>
+                            <tr><td>7</td><td>7</td><td>F</td><td>15</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Memory Editor Tab -->
+        <section id="memory" class="tab-content">
+            <div class="memory-editor-container">
+                <h2>Memory Editor</h2>
+                
+                <div class="memory-controls-main">
+                    <div class="control-group">
+                        <label>Start Address:</label>
+                        <input type="text" id="mem-start-addr" value="0000" maxlength="4">
+                    </div>
+                    <div class="control-group">
+                        <label>End Address:</label>
+                        <input type="text" id="mem-end-addr" value="00FF" maxlength="4">
+                    </div>
+                    <button id="load-memory-btn" class="btn primary">Load Memory</button>
+                    <button id="clear-memory-btn" class="btn danger">Clear Memory</button>
+                </div>
+
+                <div class="memory-input-section">
+                    <h3>Enter Data at Memory Location</h3>
+                    <div class="memory-input-controls">
+                        <div class="control-group">
+                            <label>Address:</label>
+                            <input type="text" id="mem-addr-input" placeholder="0000" maxlength="4">
+                        </div>
+                        <div class="control-group">
+                            <label>Data (Hex):</label>
+                            <input type="text" id="mem-data-input" placeholder="00" maxlength="2">
+                        </div>
+                        <button id="set-memory-btn" class="btn success">Set</button>
+                    </div>
+                </div>
+
+                <div class="memory-bulk-input">
+                    <h3>Bulk Data Entry</h3>
+                    <div class="control-group">
+                        <label>Starting Address:</label>
+                        <input type="text" id="bulk-start-addr" value="0000" maxlength="4">
+                    </div>
+                    <textarea id="bulk-data" placeholder="Enter hex bytes separated by spaces or commas
+Example: 3E 05 06 03 80 76"></textarea>
+                    <button id="bulk-load-btn" class="btn primary">Load Data</button>
+                </div>
+
+                <div id="memory-table-container" class="memory-table-container">
+                    <table id="memory-table" class="memory-table">
+                        <thead>
+                            <tr>
+                                <th>Address</th>
+                                <th>+0</th>
+                                <th>+1</th>
+                                <th>+2</th>
+                                <th>+3</th>
+                                <th>+4</th>
+                                <th>+5</th>
+                                <th>+6</th>
+                                <th>+7</th>
+                                <th>+8</th>
+                                <th>+9</th>
+                                <th>+A</th>
+                                <th>+B</th>
+                                <th>+C</th>
+                                <th>+D</th>
+                                <th>+E</th>
+                                <th>+F</th>
+                            </tr>
+                        </thead>
+                        <tbody id="memory-table-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>8085 Microprocessor Simulator | Created for Learning Purposes</p>
+        <p><a href="https://www.github.com/developerved2312">GitHub: developerved2312</a></p>
+        <p>Copyright ©: Ved Vyas, All Rights Reserved</p>
+    </footer>
+
+    <script src="instructions.js"></script>
+    <script src="assembler.js"></script>
+    <script src="simulator.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

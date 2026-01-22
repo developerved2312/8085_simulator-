@@ -1,0 +1,747 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #2563eb;
+    --primary-dark: #1d4ed8;
+    --success-color: #16a34a;
+    --warning-color: #ea580c;
+    --danger-color: #dc2626;
+    --bg-color: #0f172a;
+    --surface-color: #1e293b;
+    --surface-light: #334155;
+    --text-color: #f1f5f9;
+    --text-muted: #94a3b8;
+    --border-color: #475569;
+    --accent-color: #06b6d4;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    line-height: 1.6;
+}
+
+header {
+    background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+header p {
+    opacity: 0.9;
+    font-size: 1.1rem;
+}
+
+/* Navigation Tabs */
+.tabs {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: var(--surface-color);
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    background: var(--surface-light);
+    color: var(--text-color);
+}
+
+.tab-btn.active {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* Main Content */
+main {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    background: var(--surface-light);
+    color: var(--text-color);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btn.primary {
+    background: var(--primary-color);
+}
+
+.btn.primary:hover {
+    background: var(--primary-dark);
+}
+
+.btn.success {
+    background: var(--success-color);
+}
+
+.btn.warning {
+    background: var(--warning-color);
+}
+
+.btn.danger {
+    background: var(--danger-color);
+}
+
+.btn.small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+}
+
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Editor Section */
+.editor-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+    .editor-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.code-section h2,
+.output-section h2 {
+    margin-bottom: 0.75rem;
+    color: var(--accent-color);
+}
+
+#code-input {
+    width: 100%;
+    height: 300px;
+    padding: 1rem;
+    font-family: 'Consolas', 'Monaco', monospace;
+    font-size: 14px;
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-color);
+    resize: vertical;
+}
+
+#code-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.output-box {
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    font-family: 'Consolas', monospace;
+    font-size: 13px;
+    height: 140px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
+
+.output-box:last-child {
+    margin-bottom: 0;
+}
+
+/* Registers and Memory */
+.registers-memory {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 900px) {
+    .registers-memory {
+        grid-template-columns: 1fr;
+    }
+}
+
+.registers,
+.quick-memory {
+    background: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 2px solid var(--border-color);
+}
+
+.registers h2,
+.registers h3,
+.quick-memory h2 {
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+.register-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.register {
+    background: var(--surface-light);
+    padding: 0.75rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.register.wide {
+    grid-column: span 2;
+}
+
+.reg-name {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+}
+
+.reg-value {
+    font-family: 'Consolas', monospace;
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+.special-registers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.flags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.flag {
+    background: var(--surface-light);
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    text-align: center;
+    min-width: 50px;
+    border: 1px solid var(--border-color);
+}
+
+.flag-name {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.flag-value {
+    font-family: 'Consolas', monospace;
+    font-weight: bold;
+    color: var(--warning-color);
+}
+
+.flag-value.set {
+    color: var(--success-color);
+}
+
+.memory-controls {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.memory-controls input {
+    width: 80px;
+    padding: 0.4rem;
+    font-family: 'Consolas', monospace;
+    background: var(--surface-light);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-color);
+    text-transform: uppercase;
+}
+
+.memory-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 0.5rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.memory-cell {
+    background: var(--surface-light);
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+    font-family: 'Consolas', monospace;
+    font-size: 0.8rem;
+    border: 1px solid var(--border-color);
+}
+
+.memory-cell .addr {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+}
+
+.memory-cell .data {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+/* Instructions Tab */
+.instructions-container {
+    background: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.search-box {
+    margin-bottom: 1rem;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    background: var(--surface-light);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    color: var(--text-color);
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.instruction-categories {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.cat-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-muted);
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.cat-btn:hover {
+    background: var(--surface-light);
+    color: var(--text-color);
+}
+
+.cat-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.instruction-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.instruction-card {
+    background: var(--surface-light);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.instruction-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.instruction-card .mnemonic {
+    font-family: 'Consolas', monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.instruction-card .opcode {
+    font-family: 'Consolas', monospace;
+    font-size: 0.85rem;
+    color: var(--warning-color);
+    margin-bottom: 0.5rem;
+}
+
+.instruction-card .description {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.instruction-card .category-tag {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    background: var(--primary-color);
+    border-radius: 4px;
+    font-size: 0.75rem;
+}
+
+/* Converter Tab */
+.converter-container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--surface-color);
+    padding: 2rem;
+    border-radius: 12px;
+}
+
+.converter-container h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--accent-color);
+}
+
+.converter-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.converter-input {
+    background: var(--surface-light);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.converter-input label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.converter-input input {
+    width: 100%;
+    padding: 0.75rem;
+    font-family: 'Consolas', monospace;
+    font-size: 1.1rem;
+    background: var(--surface-color);
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-color);
+    text-transform: uppercase;
+}
+
+.converter-input input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
+.converter-actions {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.quick-ref {
+    background: var(--surface-light);
+    padding: 1.5rem;
+    border-radius: 8px;
+}
+
+.quick-ref h3 {
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+.ref-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ref-table th,
+.ref-table td {
+    padding: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.ref-table th {
+    background: var(--surface-color);
+    color: var(--accent-color);
+}
+
+.ref-table td {
+    font-family: 'Consolas', monospace;
+}
+
+/* Memory Editor Tab */
+.memory-editor-container {
+    background: var(--surface-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.memory-editor-container h2 {
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.memory-editor-container h3 {
+    color: var(--text-muted);
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+.memory-controls-main {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.control-group label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.control-group input {
+    padding: 0.5rem;
+    font-family: 'Consolas', monospace;
+    background: var(--surface-light);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-color);
+    text-transform: uppercase;
+    width: 100px;
+}
+
+.memory-input-section,
+.memory-bulk-input {
+    background: var(--surface-light);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.memory-input-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+#bulk-data {
+    width: 100%;
+    height: 100px;
+    padding: 0.75rem;
+    font-family: 'Consolas', monospace;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-color);
+    resize: vertical;
+    margin-bottom: 0.75rem;
+}
+
+.memory-table-container {
+    max-height: 400px;
+    overflow: auto;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.memory-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Consolas', monospace;
+    font-size: 0.85rem;
+}
+
+.memory-table th,
+.memory-table td {
+    padding: 0.5rem;
+    text-align: center;
+    border: 1px solid var(--border-color);
+}
+
+.memory-table th {
+    background: var(--surface-light);
+    color: var(--accent-color);
+    position: sticky;
+    top: 0;
+}
+
+.memory-table td:first-child {
+    background: var(--surface-light);
+    color: var(--text-muted);
+    font-weight: bold;
+}
+
+.memory-table td.highlight {
+    background: var(--primary-color);
+    color: white;
+}
+
+.memory-table td.pc-highlight {
+    background: var(--success-color);
+    color: white;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border-color);
+    margin-top: 2rem;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--surface-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+/* Execution Log Styling */
+.log-entry {
+    padding: 0.25rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.log-entry:last-child {
+    border-bottom: none;
+}
+
+.log-entry.error {
+    color: var(--danger-color);
+}
+
+.log-entry.success {
+    color: var(--success-color);
+}
+
+.log-entry.info {
+    color: var(--accent-color);
+}
+
+/* Machine Code Output */
+.machine-code-line {
+    display: flex;
+    gap: 1rem;
+    padding: 0.25rem 0;
+}
+
+.machine-code-line .address {
+    color: var(--text-muted);
+    min-width: 50px;
+}
+
+.machine-code-line .bytes {
+    color: var(--warning-color);
+}
+
+.machine-code-line .instruction {
+    color: var(--accent-color);
+}
+
+/* Animation */
+@keyframes pulse {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+    }
+}
+
+.register.active {
+    animation: pulse 1s ease-in-out;
+    border-color: var(--primary-color);
+}
+
+
+
+
+
+
